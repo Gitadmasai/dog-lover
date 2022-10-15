@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .flex{
+            border: 1px solid black;
+            margin-top: 10px;
+            text-align: center;
+            background-color: black;
+            color: white;
+            width: 50%;
+            margin-left:25% ;
+            cursor: pointer;
+        }
+        #container{
+            background-color: teal;
+            display: flex;
+            justify-content:space-evenly;
+            height: 50px;
+        }
+
+        #container div{
+            margin-top: 15px;
+            font-size: 30px;
+            font-weight: bolder;
+            color: white;
+            cursor: pointer;
+        }
+
+        
+
+        #box img{
+            width: 700px;
+            height: 600px;
+            margin-left: 500px;
+            margin-top: 90px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div onclick="window.location.href='index.html'">Home</div>
+        <div onclick="window.location.href='puppy.html'">Puppy</div>
+        <div onclick="window.location.href='search.html'">Search</div>
+    </div>
+    <div id="box"></div>
+</body>
+<script>
+    async function start(){
+        const res = await fetch("https://dog.ceo/api/breeds/list/all")
+        const data = await res.json()
+        
+        
+        var result=[];
+        for(key in data.message){
+            result.push(key)
+        }
+        checkof(result)
+        console.log(result)
+    }
+
+    start()
+
+    function checkof(result){
+
+        result.forEach(function(el){
+            var div = document.createElement('div')
+            div.setAttribute('class','flex')
+
+
+            var H1 = document.createElement('h1')
+            H1.innerHTML=el
+
+            div.onclick = ()=>{
+                localStorage.setItem('dog',el)
+                window.location.href='puppy.html'
+            }
+
+            div.append(H1)
+
+            
+
+            box.append(div)
+        })
+    }
+
+    
+    
+</script>
+</html>

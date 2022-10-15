@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container{
+            background-color: teal;
+            display: flex;
+            justify-content:space-evenly;
+            height: 50px;
+        }
+
+        #container div{
+            margin-top: 15px;
+            font-size: 30px;
+            font-weight: bolder;
+            color: white;
+            cursor: pointer;
+        }
+
+        
+
+        #box img{
+            width: 700px;
+            height: 600px;
+            margin-left: 500px;
+            margin-top: 90px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div onclick="window.location.href='index.html'">Home</div>
+        <div onclick="window.location.href='puppy.html'">Puppy</div>
+        <div onclick="window.location.href='search.html'">Search</div>
+    </div>
+    <div id="box"></div>
+</body>
+<script>
+    var dogres = localStorage.getItem('dog')
+    console.log(dogres)
+
+    async function getData(){
+        const res= await fetch(`https://dog.ceo/api/breed/${dogres}/images`)
+        const data= await res.json()
+        console.log(data)
+        dogdata(data.message)
+    }
+
+    getData()
+
+    function dogdata(image){
+        image.forEach(function(el){
+            let div = document.createElement("div")
+            let img=document.createElement("img")
+            img.src=el;
+
+            div.append(img)
+
+            box.append(div)
+        })
+    }
+
+</script>
+</html>
